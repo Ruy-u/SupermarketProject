@@ -1,0 +1,128 @@
+﻿@model SupermarketProject.Models.CustomerProjects
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background: url('/Images/register-bg.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        .register-container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            color: #007bff;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+            .btn-primary:hover {
+                background-color: #0056b3;
+                border-color: #004085;
+            }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+        }
+
+        .form-control,
+        .form-select {
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <h1 class="text-center mb-4">Create Account</h1>
+
+        <!-- Success Alert -->
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success text-center" role="alert">
+                @TempData["SuccessMessage"]
+            </div>
+            <script>
+                setTimeout(function () {
+                    window.location.href = '@Url.Action("Login", "UserAccount")';
+                }, 3000); // Redirect to login page after 3 seconds
+            </script>
+        }
+
+        <!-- Error Alert -->
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger text-center" role="alert">
+                @TempData["ErrorMessage"]
+            </div>
+        }
+
+        <form asp-action="Register" method="post">
+            <div class="mb-3">
+                <label for="name" class="form-label">Full Name:</label>
+                <input type="text" id="name" name="Name" class="form-control" placeholder="Enter your full name" required />
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email Address:</label>
+                <input type="email" id="email" name="Email" class="form-control" placeholder="Enter your email" required />
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password:</label>
+                <input type="password" id="password" name="Password" class="form-control" placeholder="Enter your password" required />
+            </div>
+            <div class="mb-3">
+                <label for="confirmPassword" class="form-label">Confirm Password:</label>
+                <input type="password" id="confirmPassword" name="ConfirmPassword" class="form-control" placeholder="Re-enter your password" required />
+            </div>
+            <div class="mb-3">
+                <label for="job" class="form-label">Job:</label>
+                <input type="text" id="job" name="Job" class="form-control" placeholder="Enter your job title" />
+            </div>
+            <div class="mb-3">
+                <label for="married" class="form-label">Married:</label>
+                <select id="married" name="Married" class="form-select">
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="gender" class="form-label">Gender:</label>
+                <select id="gender" name="Gender" class="form-select">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="location" class="form-label">Location:</label>
+                <textarea id="location" name="Location" class="form-control" rows="3" placeholder="Enter your location"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Register</button>
+        </form>
+
+        <div class="text-center mt-3">
+            <a asp-action="Login" asp-controller="UserAccount" class="btn btn-secondary">Back to Login</a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

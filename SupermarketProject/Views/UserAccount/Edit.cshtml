@@ -1,0 +1,54 @@
+﻿@model SupermarketProject.Models.UserAccountProjects
+
+@{
+    Layout = "_AdminLayout";
+}
+
+<div class="container mt-5">
+    <h1 class="text-center text-primary mb-4">Edit User</h1>
+
+    <div class="card shadow">
+        <div class="card-body">
+            <form asp-action="Edit" method="post">
+                <!-- User ID (Read-Only) -->
+                <div class="mb-3">
+                    <label class="form-label">User ID</label>
+                    <input type="text" class="form-control" value="@Model.Id" readonly />
+                </div>
+
+                <!-- Name -->
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label">Name</label>
+                    <input asp-for="Name" class="form-control" placeholder="Enter user name" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <!-- Password -->
+                <div class="mb-3">
+                    <label asp-for="Pass" class="form-label">Password</label>
+                    <input asp-for="Pass" type="password" class="form-control" placeholder="Enter user password" />
+                    <span asp-validation-for="Pass" class="text-danger"></span>
+                </div>
+
+                <!-- Role Dropdown -->
+                <div class="mb-3">
+                    <label asp-for="Role" class="form-label">Role</label>
+                    <select asp-for="Role" class="form-select">
+                        <option value="Admin">Admin</option>
+                        <option value="Customer">Customer</option>
+                    </select>
+                    <span asp-validation-for="Role" class="text-danger"></span>
+                </div>
+                <!-- Action Buttons -->
+                <div class="d-flex justify-content-between">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-save"></i> Save Changes
+                    </button>
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <i class="bi bi-arrow-left"></i> Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

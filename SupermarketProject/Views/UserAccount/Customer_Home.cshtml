@@ -1,0 +1,54 @@
+﻿@model IEnumerable<SupermarketProject.Models.ItemProjects>
+
+@{
+    Layout = "_CustomerLayout";
+}
+
+<div class="container mt-4">
+    <h1 class="text-center mb-4 display-4 text-primary">Welcome to the Supermarket!</h1>
+    <p class="text-center fs-5">Browse through our discounted items below and add them to your cart.</p>
+
+    <div class="row g-4">
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-header bg-transparent text-center">
+                        <h5 class="card-title mb-0 text-uppercase text-dark">@item.Name</h5>
+                    </div>
+                    <img src="/Images/@item.Imgfile" class="card-img-top img-fluid" alt="@item.Name" style="height: 200px; object-fit: cover; border-bottom: 1px solid #ddd;" />
+                    <div class="card-body">
+                        <p class="card-text text-center mb-2">
+                            <span class="fw-bold text-success">Price:</span> $@item.Price <br />
+                            <span class="fw-bold text-warning">Discount:</span> @item.Discount <br />
+                            <span class="fw-bold text-info">Available:</span> @item.Quantity
+                        </p>
+
+                        <div class="d-flex justify-content-between align-items-center">
+                            @if (item.Quantity > 0)
+                            {
+                                <form asp-action="CartAdd" method="post" class="d-inline">
+                                    <input type="hidden" name="itemId" value="@item.Id" />
+                                    <div class="d-flex align-items-center">
+                                        <input type="number" name="quantity" min="1" max="@item.Quantity" value="1" class="form-control form-control-sm me-2" style="width: 80px;" />
+                                        <button type="submit" class="btn btn-success btn-sm">Add to Cart</button>
+                                    </div>
+                                </form>
+                            }
+                            else
+                            {
+                                <button class="btn btn-secondary btn-sm" disabled>Out of Stock</button>
+                            }
+
+                            <a asp-action="ItemBuyDetail" asp-route-id="@item.Id" asp-controller="Orders" class="btn btn-primary btn-sm">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="text-center mt-5">
+        <a asp-action="CatalogueBuy" asp-controller="Orders" class="btn btn-outline-primary btn-lg">View All Items</a>
+    </div>
+</div>

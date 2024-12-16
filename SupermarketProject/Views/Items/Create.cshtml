@@ -1,0 +1,49 @@
+﻿@model SupermarketProject.Models.ItemProjects
+
+@{
+    Layout = "_AdminLayout";
+}
+
+<div class="container mt-4">
+    <h1>Add New Item</h1>
+
+    <form asp-action="Create" method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="name" class="form-label">Item Name:</label>
+            <input type="text" id="name" asp-for="Name" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Description:</label>
+            <input type="text" id="description" asp-for="Description" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label for="price" class="form-label">Price:</label>
+            <input type="number" id="price" asp-for="Price" class="form-control" step="0.1" required />
+        </div>
+
+        <div class="mb-3">
+            <label for="discount" class="form-label">Discount (optional):</label>
+            <input type="text" id="discount" asp-for="Discount" class="form-control" placeholder="Enter discount if applicable" />
+        </div>
+
+        <div class="mb-3">
+            <label for="category" class="form-label">Category:</label>
+            <input type="number" id="category" asp-for="Category" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label for="quantity" class="form-label">Quantity:</label>
+            <input type="number" id="quantity" asp-for="Quantity" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label for="imgfile" class="form-label">Upload Image:</label>
+            <input type="file" id="imgfile" name="Imgfile" class="form-control" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Add Item</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>

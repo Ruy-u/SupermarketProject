@@ -1,0 +1,42 @@
+﻿@{
+    Layout = "_AdminLayout";
+}
+
+<div class="container mt-4">
+    <h1 class="text-center text-primary mb-4">Purchase Report</h1>
+
+    @if (ViewBag.Report != null && ((IEnumerable<dynamic>)ViewBag.Report).Any())
+    {
+        <div class="table-responsive shadow-lg p-4 bg-white rounded">
+            <table class="table table-bordered table-hover align-middle text-center">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Customer Name</th>
+                        <th>Total Purchase Amount</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewBag.Report)
+                    {
+                        <tr>
+                            <td>@item.CustomerName</td>
+                            <td>$@item.TotalPurchase</td>
+                            <td>
+                                <a asp-action="OrdersDetail" asp-route-customerName="@item.CustomerName" class="btn btn-info btn-sm">
+                                    <i class="bi bi-eye"></i> View Orders
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info text-center shadow">
+            <strong>No purchase records found.</strong>
+        </div>
+    }
+</div>

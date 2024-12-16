@@ -1,0 +1,33 @@
+﻿@model IEnumerable<SupermarketProject.Models.ItemProjects>
+
+@{
+    Layout = "_CustomerLayout";
+}
+
+<div class="container mt-4">
+    <h1>Catalogue</h1>
+
+    @if (Model != null && Model.Any())
+    {
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <img src="/Images/@item.Imgfile" class="card-img-top" alt="@item.Name" style="max-height: 200px; object-fit: cover;" />
+                        <div class="card-body">
+                            <h5 class="card-title">@item.Name</h5>
+                            <p class="card-text">Price: $@item.Price</p>
+                            <p class="card-text">Discount: @item.Discount</p>
+                            <a asp-action="BuyDetail" asp-route-id="@item.Id" asp-controller="Orders" class="btn btn-primary">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <p>No items available at the moment.</p>
+    }
+</div>

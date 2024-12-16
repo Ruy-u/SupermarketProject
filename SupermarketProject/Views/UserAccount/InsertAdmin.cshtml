@@ -1,0 +1,32 @@
+﻿@model SupermarketProject.Models.UserAccountProjects
+
+@{
+    Layout = "_AdminLayout";
+}
+
+<div class="container mt-4">
+    <h1>Insert New Admin</h1>
+
+    <form asp-action="InsertAdmin" method="post">
+        <div class="mb-3">
+            <label for="name" class="form-label">Name:</label>
+            <input type="text" id="name" asp-for="Name" class="form-control" required />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label for="password" class="form-label">Password:</label>
+            <input type="password" id="password" asp-for="Pass" class="form-control" required />
+            <span asp-validation-for="Pass" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label for="role" class="form-label">Role:</label>
+            <input type="text" id="role" asp-for="Role" class="form-control" value="Admin" readonly />
+            <span asp-validation-for="Role" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-success">Insert Admin</button>
+        <a asp-action="Admin_Home" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>

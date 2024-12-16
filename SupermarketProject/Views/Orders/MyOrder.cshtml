@@ -1,0 +1,36 @@
+﻿@model IEnumerable<SupermarketProject.Models.OrderProjects>
+@{
+    Layout = "_CustomerLayout";
+}
+<div class="container mt-4">
+    <h1>My Orders</h1>
+
+    @if (Model != null && Model.Any())
+    {
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Order Date</th>
+                    <th>Total</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var order in Model)
+                {
+                    <tr>
+                        <td>@order.OrderDate.ToShortDateString()</td>
+                        <td>$@order.Total</td>
+                        <td>
+                            <a asp-action="OrderLine" asp-route-orderId="@order.Id" class="btn btn-primary">View Details</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>You have no orders yet.</p>
+    }
+</div>

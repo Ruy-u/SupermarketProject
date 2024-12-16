@@ -1,0 +1,50 @@
+﻿@model IEnumerable<SupermarketProject.Models.OrderProjects>
+
+@{
+    Layout = "_AdminLayout";
+    var customerName = ViewBag.CustomerName ?? "Customer";
+}
+
+<div class="container mt-4">
+    <h1 class="text-center text-primary mb-4">Orders for @customerName</h1>
+
+    @if (Model != null && Model.Any())
+    {
+        <div class="table-responsive shadow-lg p-4 bg-white rounded">
+            <table class="table table-bordered table-hover align-middle text-center">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Order Date</th>
+                        <th>Total</th>
+                        <th>Items</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var order in Model)
+                    {
+                        <tr>
+                            <td>@order.Id</td>
+                            <td>@order.OrderDate.ToShortDateString()</td>
+                            <td>$@order.Total</td>
+                            <td>
+                                <ul class="list-unstyled">
+                                    @foreach (var line in order.OrderLineProjects)
+                                    {
+                                        <li>@line.ItemName - Qty: @line.ItemQuant - Price: $@line.ItemPrice</li>
+                                    }
+                                </ul>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info text-center">
+            <strong>No orders found for @customerName.</strong>
+        </div>
+    }
+</div>

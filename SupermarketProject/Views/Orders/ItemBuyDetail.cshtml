@@ -1,0 +1,50 @@
+﻿@model SupermarketProject.Models.ItemProjects
+
+@{
+    Layout = "_CustomerLayout";
+}
+
+<div class="container mt-4">
+    <h1>Item Details</h1>
+
+    <table class="table table-bordered">
+        <tr>
+            <th>Item Name</th>
+            <td>@Model.Name</td>
+        </tr>
+        <tr>
+            <th>Price</th>
+            <td>@Model.Price</td>
+        </tr>
+        <tr>
+            <th>Description</th>
+            <td>@Model.Description</td>
+        </tr>
+        <tr>
+            <th>Discount</th>
+            <td>@Model.Discount</td>
+        </tr>
+        <tr>
+            <th>Available Stock</th>
+            <td>@Model.Quantity</td>
+        </tr>
+    </table>
+
+    @if (Model.Quantity > 0)
+    {
+        <form asp-action="CartAdd" asp-controller="Orders" method="post">
+            <input type="hidden" name="itemId" value="@Model.Id" />
+            <div class="mb-3">
+                <label for="quantity" class="form-label">Quantity:</label>
+                <input type="number" name="quantity" id="quantity" min="1" max="@Model.Quantity" value="1" required class="form-control" />
+            </div>
+            <button type="submit" class="btn btn-primary">Add to Cart</button>
+        </form>
+    }
+    else
+    {
+        <p class="text-danger">This item is out of stock.</p>
+    }
+
+    <a asp-action="CatalogueBuy" asp-controller="Orders" class="btn btn-secondary">Back to Catalogue</a>
+</div>

@@ -1,0 +1,59 @@
+﻿@{
+    Layout = "_AdminLayout";
+}
+
+<div class="container mt-5">
+    <h1 class="text-center text-primary mb-4">Dashboard</h1>
+
+    <!-- Cards -->
+    <div class="row mb-5">
+        <div class="col-md-4">
+            <div class="card text-white bg-info shadow">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Total Items</h5>
+                    <p class="card-text text-center display-4">@ViewBag.TotalItems</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-success shadow">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Total Quantity Sold</h5>
+                    <p class="card-text text-center display-4">@ViewBag.TotalQuantity</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pie Chart -->
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div id="categoryChart" style="width: 100%; height: 500px;"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Google Charts Script -->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+    google.charts.load('current', { packages: ['corechart'] });
+    google.charts.setOnLoadCallback(drawCategoryChart);
+
+    function drawCategoryChart() {
+        // Ensure ViewBag data is correctly embedded
+        var chartData = JSON.parse('@Html.Raw(ViewBag.CategoryData)');
+        var data = google.visualization.arrayToDataTable([
+            ['Category', 'Count'], // Chart header
+            ...chartData
+        ]);
+
+        var options = {
+            title: 'Items by Category',
+            is3D: true,
+            colors: ['#ff6384', '#36a2eb', '#cc65fe', '#ffce56', '#4bc0c0'],
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('categoryChart'));
+        chart.draw(data, options);
+    }
+</script>

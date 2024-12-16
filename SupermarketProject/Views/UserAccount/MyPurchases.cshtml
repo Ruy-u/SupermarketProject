@@ -1,0 +1,17 @@
+﻿@model IEnumerable<SupermarketProject.Models.OrderProjects>
+
+<h1>My Purchases</h1>
+<ul>
+    @foreach (var order in Model)
+    {
+        <li>
+            <strong>Order Date:</strong> @order.OrderDate
+            <ul>
+                @foreach (var line in order.OrderLineProjects)
+                {
+                    <li>@line.ItemName - @line.ItemPrice x @line.ItemQuant</li>
+                }
+            </ul>
+        </li>
+    }
+</ul>

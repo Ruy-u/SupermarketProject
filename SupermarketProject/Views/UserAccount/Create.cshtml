@@ -1,0 +1,58 @@
+﻿@model SupermarketProject.Models.UserAccountProjects
+
+@{
+    Layout = "_AdminLayout";
+}
+
+<div class="container mt-5">
+    <h1 class="text-center text-primary mb-4">Create Admin User</h1>
+
+    <div class="card shadow">
+        <div class="card-body">
+            <form id="createAdminForm" asp-action="Create" method="post">
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label">Name</label>
+                    <input asp-for="Name" class="form-control" placeholder="Enter name" required />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Pass" class="form-label">Password</label>
+                    <input asp-for="Pass" type="password" id="Password" class="form-control" placeholder="Enter password" required />
+                    <span asp-validation-for="Pass" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label for="ConfirmPassword" class="form-label">Confirm Password</label>
+                    <input type="password" id="ConfirmPassword" name="ConfirmPassword" class="form-control" placeholder="Re-enter password" required />
+                    <span id="passwordError" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Role" class="form-label">Role</label>
+                    <input asp-for="Role" class="form-control" readonly value="Admin" />
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <button type="submit" class="btn btn-primary">Create User</button>
+                    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('createAdminForm').addEventListener('submit', function (event) {
+        const password = document.getElementById('Password').value;
+        const confirmPassword = document.getElementById('ConfirmPassword').value;
+        const passwordError = document.getElementById('passwordError');
+
+        if (password !== confirmPassword) {
+            event.preventDefault(); // Prevent form submission
+            passwordError.textContent = "Passwords do not match. Please try again.";
+        } else {
+            passwordError.textContent = ""; // Clear error message
+        }
+    });
+</script>

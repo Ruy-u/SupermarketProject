@@ -1,0 +1,92 @@
+﻿@{
+    Layout = null; // No layout for the login page
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Supermarket</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background: url('/Images/supermarket-bg.jpg') no-repeat center center fixed;
+            background-size: cover;
+            position: relative;
+        }
+
+            body::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+                z-index: -1;
+            }
+
+        .login-container {
+            max-width: 400px;
+            margin: 100px auto;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+            .login-container h1 {
+                text-align: center;
+                font-weight: bold;
+                margin-bottom: 20px;
+                color: #0d6efd;
+            }
+
+        .form-label {
+            font-weight: bold;
+        }
+
+        .btn-primary, .btn-secondary {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="login-container">
+            <h1>Login</h1>
+
+            <!-- Error Message -->
+            @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+            {
+                <div class="alert alert-danger text-center">@ViewBag.ErrorMessage</div>
+            }
+
+            <form asp-action="Login" method="post">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Username:</label>
+                    <input type="text" id="name" name="name" class="form-control" placeholder="Enter your username" required />
+                </div>
+
+                <div class="mb-3">
+                    <label for="pass" class="form-label">Password:</label>
+                    <input type="password" id="pass" name="pass" class="form-control" placeholder="Enter your password" required />
+                </div>
+
+                <div class="form-check mb-3">
+                    <input type="checkbox" id="autoLogin" name="autoLogin" class="form-check-input" />
+                    <label for="autoLogin" class="form-check-label">Remember Me (Auto Login)</label>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+
+            <a asp-action="Register" asp-controller="UserAccount" class="btn btn-secondary">Register</a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

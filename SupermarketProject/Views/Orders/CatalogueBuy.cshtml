@@ -1,0 +1,40 @@
+﻿@model IEnumerable<SupermarketProject.Models.ItemProjects>
+
+@{
+    Layout = "_CustomerLayout";
+}
+
+<div class="container mt-4">
+    <h1>Catalogue</h1>
+
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <img src="/Images/@item.Imgfile" class="card-img-top" alt="@item.Name" style="max-height: 200px; object-fit: cover;" />
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Name</h5>
+                        <p class="card-text">Price: $@item.Price</p>
+                        <p class="card-text">Available: @item.Quantity</p>
+
+                        <a asp-action="ItemBuyDetail" asp-route-id="@item.Id" asp-controller="Orders" class="btn btn-primary">View Details</a>
+
+                        @if (item.Quantity > 0)
+                        {
+                            <form asp-action="CartAdd" method="post" class="mt-2">
+                                <input type="hidden" name="itemId" value="@item.Id" />
+                                <input type="number" name="quantity" min="1" max="@item.Quantity" value="1" class="form-control mb-2" />
+                                <button type="submit" class="btn btn-success">Add to Cart</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <button class="btn btn-secondary mt-2" disabled>Out of Stock</button>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
