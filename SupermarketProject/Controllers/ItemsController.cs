@@ -179,26 +179,48 @@ namespace SupermarketProject.Controllers
             return View(items);
         }
 
-        // Dashboard action
         public async Task<IActionResult> Dashboard()
         {
-            // Group by category and count items
+            var categories = new Dictionary<int, string>
+    {
+        { 1, "Fruit" },
+        { 2, "Meats" },
+        { 3, "Vegetables" },
+        { 4, "Dairy" },
+        { 5, "Uncategorized" }
+    };
+
+            // Calculate category data
             var categoryCounts = await _context.ItemProjects
-                .GroupBy(i => i.Category)
-                .Select(g => new { Category = g.Key.HasValue ? g.Key.ToString() : "Uncategorized", Count = g.Count() })
+                .GroupBy(i => i.Category ?? 5)
+                .Select(g => new
+                {
+                    CategoryId = g.Key,
+                    TotalQuantity = g.Sum(i => i.Quantity ?? 0)
+                })
                 .ToListAsync();
 
-            // Total items
-            var totalItems = await _context.ItemProjects.CountAsync();
+            var categoryData = categoryCounts
+                .Select(c => new object[]
+                {
+            categories.ContainsKey(c.CategoryId) ? categories[c.CategoryId] : "Uncategorized",
+            c.TotalQuantity
+                })
+                .ToList();
 
-            // Total quantity from OrderLineProjects
+            foreach (var category in categories)
+            {
+                if (!categoryData.Any(c => c[0].ToString() == category.Value))
+                {
+                    categoryData.Add(new object[] { category.Value, 0 });
+                }
+            }
+
+            // Fix for TotalQuantity from OrderLineProjects
             var totalQuantity = await _context.OrderLineProjects.SumAsync(o => (int?)o.ItemQuant) ?? 0;
 
-            // Serialize category counts to JSON
-            ViewBag.CategoryData = JsonConvert.SerializeObject(
-                    categoryCounts.Select(c => new object[] { c.Category, c.Count })
-                );
-            ViewBag.TotalItems = totalItems;
+            ViewBag.CategoryData = JsonConvert.SerializeObject(categoryData);
+            ViewBag.TotalItems = await _context.ItemProjects.CountAsync();
             ViewBag.TotalQuantity = totalQuantity;
 
             return View();

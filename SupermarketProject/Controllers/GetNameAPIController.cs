@@ -29,9 +29,9 @@ namespace SupermarketProject.Controllers
                 return BadRequest(new { Message = "Role parameter is required." });
             }
 
-            // Fetch users with the specified role
+            // Convert role to lowercase for case-insensitive comparison
             var users = await _context.UserAccountProjects
-                .Where(u => u.Role.Equals(role, StringComparison.OrdinalIgnoreCase))
+                .Where(u => u.Role.ToLower() == role.ToLower()) // Case-insensitive comparison
                 .Select(u => new { u.Name })
                 .ToListAsync();
 

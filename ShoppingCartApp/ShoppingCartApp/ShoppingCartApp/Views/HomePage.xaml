@@ -1,0 +1,67 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ShoppingCartApp.Views.HomePage"
+             Title="Home"
+             BackgroundColor="#F3F4F6">
+
+    <!-- Page Layout -->
+    <Grid Padding="10">
+        <!-- Page Title -->
+        <Label Text="Our Products"
+               FontSize="28"
+               FontAttributes="Bold"
+               HorizontalOptions="Center"
+               TextColor="#333"
+               Margin="0,10,0,20" />
+
+        <!-- Product List -->
+        <CollectionView x:Name="ProductsCollectionView"
+                        ItemsSource="{Binding Products}"
+                        ItemsLayout="VerticalGrid, 2"
+                        VerticalOptions="FillAndExpand">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <!-- Product Card -->
+                    <Frame BackgroundColor="White"
+                           CornerRadius="10"
+                           HasShadow="True"
+                           Padding="10"
+                           Margin="5">
+                        <StackLayout Spacing="10" HorizontalOptions="FillAndExpand">
+                            <!-- Product Name -->
+                            <Label Text="{Binding Name}" 
+                                   FontSize="18" 
+                                   FontAttributes="Bold" 
+                                   TextColor="#333" 
+                                   HorizontalOptions="Center" />
+
+                            <!-- Product Price -->
+                            <Label Text="{Binding Price, StringFormat='Price: {0:C}'}" 
+                                   FontSize="16" 
+                                   TextColor="#007AFF" 
+                                   HorizontalOptions="Center" />
+
+                            <!-- Product Quantity -->
+                            <Label Text="{Binding Quantity, StringFormat='Available: {0}'}" 
+                                   FontSize="14" 
+                                   TextColor="Gray" 
+                                   HorizontalOptions="Center" />
+
+                            <!-- Add to Cart Button -->
+                            <Button Text="Add to Cart"
+                                    BackgroundColor="#007AFF"
+                                    TextColor="White"
+                                    FontAttributes="Bold"
+                                    CornerRadius="10"
+                                    CommandParameter="{Binding}"
+                                    Clicked="OnAddToCartClicked"
+                                    IsEnabled="{Binding Quantity, Converter={StaticResource GreaterThanZeroConverter}}"
+                                    HeightRequest="40"
+                                    HorizontalOptions="FillAndExpand" />
+                        </StackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

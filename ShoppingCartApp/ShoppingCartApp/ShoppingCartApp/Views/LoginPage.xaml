@@ -1,0 +1,55 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ShoppingCartApp.Views.LoginPage"
+             Title="Login"
+             BackgroundColor="#F3F4F6">
+
+    <Grid Padding="30" RowSpacing="20">
+        <!-- Title -->
+        <Label Text="Welcome to the Supermarket!" 
+               FontSize="26" 
+               FontAttributes="Bold" 
+               TextColor="#333333" 
+               HorizontalOptions="Center" 
+               Margin="0,10,0,30" />
+
+        <!-- Login Form -->
+        <StackLayout VerticalOptions="Center" Spacing="15">
+
+            <!-- Username Entry -->
+            <Frame BackgroundColor="White"
+                   CornerRadius="10"
+                   Padding="10"
+                   HasShadow="True">
+                <Entry x:Name="UsernameEntry"
+                       Placeholder="Enter your username"
+                       PlaceholderColor="#888888"
+                       TextColor="#000000"
+                       FontSize="16" />
+            </Frame>
+
+            <!-- Password Entry -->
+            <Frame BackgroundColor="White"
+                   CornerRadius="10"
+                   Padding="10"
+                   HasShadow="True">
+                <Entry x:Name="PasswordEntry"
+                       Placeholder="Enter your password"
+                       PlaceholderColor="#888888"
+                       TextColor="#000000"
+                       IsPassword="True"
+                       FontSize="16" />
+            </Frame>
+
+            <!-- Login Button -->
+            <Button Text="Login"
+                    Clicked="OnLoginClicked"
+                    BackgroundColor="#007AFF"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    CornerRadius="10"
+                    HeightRequest="50" />
+
+        </StackLayout>
+    </Grid>
+</ContentPage>
