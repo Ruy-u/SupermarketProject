@@ -223,7 +223,7 @@ namespace SupermarketProject.Controllers
                 var smtpClient = new SmtpClient("smtp.gmail.com")
                 {
                     Port = 587, 
-                    Credentials = new NetworkCredential("faisalaljumah0@gmail.com", "rpkv dhkj zref ibfd"),
+                    Credentials = new NetworkCredential("email here", "passkey here"), //add credentials
                     EnableSsl = true
                 };
 

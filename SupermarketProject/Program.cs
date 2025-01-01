@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using SupermarketProject.Data; // Your DbContext namespace
+using SupermarketProject.Data; 
 
 var builder = WebApplication.CreateBuilder(args);
 
